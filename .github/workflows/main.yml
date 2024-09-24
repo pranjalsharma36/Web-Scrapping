@@ -1,0 +1,65 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - beta
+      - gamma
+      - main # assuming main is for production deployment
+  pull_request:
+    branches:
+      - beta
+      - gamma
+      - main
+
+jobs:
+  beta-stage:
+    if: github.ref == 'refs/heads/beta'  # Only run this job on the beta branch
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up environment for beta
+      run: echo "Setting up beta environment"
+
+    - name: Run tests for beta
+      run: echo "Running tests for beta"
+
+    - name: Deploy to beta environment
+      run: echo "Deploying to beta"
+
+  gamma-stage:
+    if: github.ref == 'refs/heads/gamma'  # Only run this job on the gamma branch
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up environment for gamma
+      run: echo "Setting up gamma environment"
+
+    - name: Run tests for gamma
+      run: echo "Running tests for gamma"
+
+    - name: Deploy to gamma environment
+      run: echo "Deploying to gamma"
+
+  prod-stage:
+    if: github.ref == 'refs/heads/main'  # Only run this job on the main (prod) branch
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up environment for production
+      run: echo "Setting up production environment"
+
+    - name: Run tests for production
+      run: echo "Running tests for production"
+
+    - name: Deploy to production
+      run: echo "Deploying to production"
